@@ -1,7 +1,13 @@
 import math
 import time
 from pythonosc import udp_client
-ip = "127.0.0.1"
+
+# change this IP address to the IP address of a specific machine if your OSC commands are being sent to a different device
+ip = "127.0.0.1" 
+
+"""
+This script is an example of how to send OSC commands to a specific port in Max/MSP with the Spat5 library
+"""
 
 # client sends to max patch object "udpreceive 2", which processes OSC message to send to spat5.oper or spat5.viewer
 port = 2

@@ -6,6 +6,14 @@ import time
 import random
 import csv
 
+"""
+Run this script in your command line/terminal with a filepath to your sound sources as 
+an argument to generate a series of OSC commands that randomly move around sound 
+objects in space. Make sure your max patch is open before running this script!
+
+"""
+
+
 # this is our local ip address (change to send to different machine)
 local_ip = "127.0.0.1"
 
