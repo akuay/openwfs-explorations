@@ -1,6 +1,7 @@
 import math
 import numpy as np
-from create_speaker_layout import *
+#from create_speaker_layout import *
+from generate_speaker_coords import *
 
 
 """
@@ -22,8 +23,7 @@ Speaker module/module: The container that a set of speakers or speaker is hosted
 in meters. 
 "spaces_between" (list): If you have more than one speaker per row in a speaker module, provide the distances
 on the x-axis between each speaker in a list. 
-"height_module" (int): Provide the height of all your speaker modules as an integer. In a future version, it will be possible
-to generate coordinates for speakers of different shapes and sizes.
+"height_module" (int): Provide the height of all your speaker modules as an integer. 
 "num_modules" (int): Provide the number of modules in your system setup
 "module_angle" (list): Provide the angle (in degrees) of each module in the system setup. Degrees can be positive or negative.
 "module_distance" (list): Provide the y-axis distance (in meters) of each module away from the baseline (0). Distances
@@ -36,21 +36,25 @@ Each module is centered at its x-axis location, and these values can be positive
 setup is 2D (i.e. there are no speakers stacked on top of each other), enter 1.
 "speaker_head_position" (int): Enter -1 if the head is above all the speaker modules. Enter 0 if the head is 
 exactly in the middle of all the speaker modules. Enter any positive number if the head is below all the speaker modules.
+Note: if the length of module_angle, module_distance, module_spread, and num_modules isn't consistent, the incorrect number of speakers will show up
 -----------------------------------------------------------------------------------------------------------------------------------
 """
 
-# change names to make plural if list
+
+# example speaker coordinates
 leftmost_speaker = [0.0381, 0.0381]
 spaces_between = [0.0381, 0.0381]
-height_module = 1.065
-num_modules = 2
-module_angle = [0, 0]
-module_distance = [0.3, 0.3]
-module_spread = [0, 0]
+height_module = 0.15
+num_modules = 4
+module_angle = [90, 0, 0, 90]
+module_distance = [0, 0.5325, 0.5325, 0]
+module_spread = [-1, -0.45, 0.45, 1]
 num_rows_per_module = 2
 num_speakers_per_row = 16
-num_speakers_in_stack = 2
-speaker_head_position = 1
+num_speakers_in_stack = 1
+speaker_head_position = -1
+
+
 
 # PRINTING RESULTS TO TERMINAL #
 
