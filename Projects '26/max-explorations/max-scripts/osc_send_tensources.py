@@ -4,20 +4,7 @@ from pythonosc.dispatcher import Dispatcher
 import asyncio
 import csv
 
-# listen for /error, append end of error message to string
-"""
-dispatcher = Dispatcher()
-dispatcher.map("/error", filter_handler)
-
-listening_port = 111
-
-server = AsyncIOOSCUDPServer((local_ip, listening_port), dispatcher, asyncio.get_event_loop())
-server.serve()
-
-def filter_handler(address, *args):
-    print(f"{address}: {args}")
-"""
-
+# this is the max IP address
 local_ip = "127.0.0.1"
 
 # intializing viewer clients
@@ -28,16 +15,20 @@ gain_client = udp_client.SimpleUDPClient(local_ip, 4)
 
 soundsource_paths = input("Upload the path to your sound sources: ")
 # /Users/administrator/Documents/sum26_projs/max-explorations/max-scripts/file_list.txt
+# /Users/administrator/Documents/sum26_projs/max-explorations/max-scripts/filenamestext.txt
 
 print("The max patch is now live.")
-# should be able to type /gain blah or /source/x/xyz blah and get it routed without worrying about port? 
+# should be able to type /gain/1 -10 or /source/2/xyz 0 0 0, etc. and get it routed without worrying about port? 
 
-# need to be able to receive error messages for loading in sound
 def parsed_osc(osc_message):
     list_osc = osc_message.split(" ")
     address, arguments = list_osc[0], list_osc[1:]
     for idx, arg in enumerate(arguments):
-        arguments[idx] = int(arg)
+        try:
+            arguments[idx] = float(arg)
+        except ValueError:
+            print("Warning: extra spaces included as empty arguments in OSC command")
+            break
     list_osc = [address, arguments]
     return list_osc
 
@@ -45,7 +36,10 @@ with open(soundsource_paths, newline = '') as file:
     soundsource_reader = csv.reader(file) # what else do i need here 
     for line in soundsource_reader:
         upload_client.send_message(line[0], line[1])
-        print(f"Audio file {line[1]} loaded into {line[0]}")
+        if line[1]:
+            print(f"Audio file {line[1]} loaded into player {line[0]}")
+        else: 
+            print(f"No audio file loaded into player {line[0]}")
 
 while True:
     incoming_osc = input("Type an OSC message: ")
@@ -59,7 +53,7 @@ while True:
         gain_client.send_message(*formatted_osc)
     elif parse2[1] == "source":
         spatialize_client.send_message(*formatted_osc)
-    elif parse2[1] == "play":
+    elif parse2[1] in {"play", "pause", "resume", "stop"}:
         play_client.send_message(*formatted_osc)
     elif incoming_osc == "quit":
         break
