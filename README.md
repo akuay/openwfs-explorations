@@ -1,15 +1,6 @@
 # openwfs-explorations
 
-A collection of projects all exploring the perception of and
-manipulation of multichannel audio
+A collection of projects centered on spatial audio.
 
-Code: Other projects. See readmes of individual files
-to learn more about the projects within. 
-
-Echo-maze-main: Contains code and recordings for a project
-exploring if a maze can be navigated solely through binaural
-audio sweeps, echos, and impulse responses. Also 
-contains 3 docx files describing the experimental design for 
-the echolocation project. 
-
-Documents: Project documentation
+Projects '25: Includes code and material from human maze echolocation project, moving audio using body recognition project, and other projects
+Projects '26: Includes code, documentation, and material from explorations in different spatial audio softwares and languages, including Max/MSP, Supercollider, and Reaper
